@@ -1,0 +1,33 @@
+name: Release
+
+on:
+  push:
+    # Run on tags matching v*.*.* (e.g., v0.2.1, v1.0.0-rc.1)
+    tags:
+      - 'v[0-9]+.*[0-9]+.*[0-9]+*'
+
+env:
+  # Set up a new cargo-dist installation cache for each cargo-dist version
+  # This makes it faster to install cargo-dist in CI, but also ensures that
+  # changing the cargo-dist version will clear the cache.
+  CARGO_DIST_BIN_INSTALL_DIR: ~/.cargo-dist/v${{ env.CARGO_DIST_VERSION }}
+
+jobs:
+  # Build a GitHub Release with cargo-dist!
+  # (cargo-dist will always produce a single job named "dist")
+  dist:
+    # Let cargo-dist set up its own matrix of jobs for us
+    # (see https://docs.rs/cargo-dist/latest/cargo_dist/getting_started/ci_setup.html#example-github-actions-workflow-with-a-matrix-job)
+    uses: cargo-dist/cargo-dist/.github/workflows/release.yml@v0.0.9 # Use cargo-dist v0.0.9
+    with:
+      # If you want to use private crates, make sure you're using a PAT
+      # with the "repo" scope, and pass it to cargo-dist like so:
+      # github_api_token: ${{ secrets.GH_PAT_FOR_CARGO_REGISTRY }}
+
+      # The default is to upload the artifacts to the release.
+      # If you want to disable that, set upload_artifacts: false
+      # upload_artifacts: false
+
+      # The default is to create a release.
+      # If you want to disable that, set create_release: false
+      # create_release: false
