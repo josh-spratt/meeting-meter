@@ -6,11 +6,6 @@ on:
     tags:
       - 'v[0-9]+.*[0-9]+.*[0-9]+*'
 
-env:
-  # Set up a new cargo-dist installation cache for each cargo-dist version
-  # This makes it faster to install cargo-dist in CI, but also ensures that
-  # changing the cargo-dist version will clear the cache.
-  CARGO_DIST_BIN_INSTALL_DIR: ~/.cargo-dist/v${{ env.CARGO_DIST_VERSION }}
 
 jobs:
   # Build a GitHub Release with cargo-dist!
