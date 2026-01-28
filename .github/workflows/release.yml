@@ -33,8 +33,8 @@ jobs:
       - name: Rename binary (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
-          mv target/release/my-cli \
-             target/release/my-cli-${{ runner.os }}
+          mv target/release/meeting-meter \
+             target/release/meeting-meter-${{ runner.os }}
 
       # Windows needs PowerShell + full path
       - name: Rename binary (Windows)
@@ -42,13 +42,13 @@ jobs:
         shell: pwsh
         run: |
           Rename-Item `
-            target\release\my-cli.exe `
-            my-cli-Windows.exe
+            target\release\meeting-meter.exe `
+            meeting-meter-Windows.exe
 
       - name: Upload binaries to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: |
-            target/release/my-cli-Linux
-            target/release/my-cli-macOS
-            target/release/my-cli-Windows.exe
+            target/release/meeting-meter-Linux
+            target/release/meeting-meter-macOS
+            target/release/meeting-meter-Windows.exe
