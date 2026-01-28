@@ -1,14 +1,27 @@
 name: Release
+
 on:
   push:
     tags:
-      - 'v[0-9]+.*'
-permissions:
-  contents: write
-jobs:
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: axodotdev/cargo-dist-action@v0.10.0
+      - "v*"
 
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Add this permission for creating GitHub releases
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build release binary
+        run: cargo build --release
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/release/meeting-meter # Corrected binary name
