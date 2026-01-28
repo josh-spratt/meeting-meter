@@ -1,29 +1,43 @@
 name: Release
-
 on:
   push:
-    # Run on tags matching v*.*.* (e.g., v0.2.1, v1.0.0-rc.1)
     tags:
-      - 'v[0-9]+.*[0-9]+.*[0-9]+*'
-
-
+      - 'v[0-9]+.*'
+permissions:
+  contents: write
 jobs:
-  # Build a GitHub Release with cargo-dist!
-  # (cargo-dist will always produce a single job named "dist")
-  dist:
-    # Let cargo-dist set up its own matrix of jobs for us
-    # (see https://docs.rs/cargo-dist/latest/cargo_dist/getting_started/ci_setup.html#example-github-actions-workflow-with-a-matrix-job)
-    uses: cargo-dist/cargo-dist/.github/workflows/release.yml@v0.10.0
+  plan:
+    runs-on: ubuntu-latest
+    outputs:
+      manifest: ${{ steps.plan.outputs.manifest }}
+      version: ${{ steps.plan.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: plan
+        uses: cargo-dist/cargo-dist-action@v0.10.0
+        with:
+          subcommand: plan
+          outputs: manifest,version
+
+  build:
+    needs: [plan]
+    strategy:
+      matrix: ${{ fromJson(needs.plan.outputs.manifest).matrix }}
+    uses: cargo-dist/cargo-dist/.github/workflows/cargo-dist.yml@v0.10.0
     with:
-      version: v0.10.0
-      # If you want to use private crates, make sure you're using a PAT
-      # with the "repo" scope, and pass it to cargo-dist like so:
-      # github_api_token: ${{ secrets.GH_PAT_FOR_CARGO_REGISTRY }}
+      manifest: ${{ needs.plan.outputs.manifest }}
+      version: ${{ needs.plan.outputs.version }}
 
-      # The default is to upload the artifacts to the release.
-      # If you want to disable that, set upload_artifacts: false
-      # upload_artifacts: false
-
-      # The default is to create a release.
-      # If you want to disable that, set create_release: false
-      # create_release: false
+  release:
+    needs: [plan, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: dist-archives-*
+          path: dist/
+          merge-multiple: true
+      - uses: cargo-dist/cargo-dist-action@v0.10.0
+        with:
+          subcommand: release
+          version: ${{ needs.plan.outputs.version }}
