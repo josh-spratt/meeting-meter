@@ -5,23 +5,41 @@ on:
     tags:
       - "v*"
 
+permissions:
+  contents: write
+
 jobs:
   build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # Add this permission for creating GitHub releases
+    name: Build ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Build release binary
+      - name: Build
         run: cargo build --release
 
-      - name: Create GitHub Release
+      - name: Rename binary (Linux/macOS)
+        if: runner.os != 'Windows'
+        run: |
+          mv target/release/my-cli target/release/my-cli-${{ runner.os }}
+
+      - name: Rename binary (Windows)
+        if: runner.os == 'Windows'
+        run: |
+          rename target\release\my-cli.exe my-cli-Windows.exe
+
+      - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/release/meeting-meter # Corrected binary name
+          files: target/release/my-cli-*
