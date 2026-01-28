@@ -10,5 +10,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: cargo-dist/cargo-dist-action@v0.10.0
+      - uses: axodotdev/cargo-dist-action@v0.10.0
 
