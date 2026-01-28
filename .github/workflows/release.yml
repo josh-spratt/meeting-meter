@@ -29,17 +29,26 @@ jobs:
       - name: Build
         run: cargo build --release
 
+      # Linux + macOS (same shell semantics)
       - name: Rename binary (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
-          mv target/release/my-cli target/release/my-cli-${{ runner.os }}
+          mv target/release/my-cli \
+             target/release/my-cli-${{ runner.os }}
 
+      # Windows needs PowerShell + full path
       - name: Rename binary (Windows)
         if: runner.os == 'Windows'
+        shell: pwsh
         run: |
-          rename target\release\my-cli.exe my-cli-Windows.exe
+          Rename-Item `
+            target\release\my-cli.exe `
+            my-cli-Windows.exe
 
-      - name: Create Release
+      - name: Upload binaries to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/release/my-cli-*
+          files: |
+            target/release/my-cli-Linux
+            target/release/my-cli-macOS
+            target/release/my-cli-Windows.exe
