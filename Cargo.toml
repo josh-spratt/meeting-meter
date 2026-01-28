@@ -22,7 +22,7 @@ regex = "1.12.2"
 lazy_static = "1.5.0"
 
 [package.metadata.dist]
-cargo-dist-version = "0.0.9"
+cargo-dist-version = "0.10.0"
 build-modes = ["release"]
 targets = [
     "x86_64-unknown-linux-gnu",
