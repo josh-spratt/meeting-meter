@@ -6,38 +6,9 @@ on:
 permissions:
   contents: write
 jobs:
-  plan:
+  release:
     runs-on: ubuntu-latest
-    outputs:
-      manifest: ${{ steps.plan.outputs.manifest }}
-      version: ${{ steps.plan.outputs.version }}
     steps:
       - uses: actions/checkout@v4
-      - id: plan
-        uses: cargo-dist/cargo-dist-action@v0.10.0
-        with:
-          subcommand: plan
-          outputs: manifest,version
-
-  build:
-    needs: [plan]
-    strategy:
-      matrix: ${{ fromJson(needs.plan.outputs.manifest).matrix }}
-    uses: cargo-dist/cargo-dist/.github/workflows/cargo-dist.yml@v0.10.0
-    with:
-      manifest: ${{ needs.plan.outputs.manifest }}
-      version: ${{ needs.plan.outputs.version }}
-
-  release:
-    needs: [plan, build]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          pattern: dist-archives-*
-          path: dist/
-          merge-multiple: true
       - uses: cargo-dist/cargo-dist-action@v0.10.0
-        with:
-          subcommand: release
-          version: ${{ needs.plan.outputs.version }}
+
