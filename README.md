@@ -11,7 +11,19 @@ A CLI tool to calculate the cost of meetings in real-time or retroactively.
 - **Reports**: Generate weekly, monthly, or all-time spending reports
 - **Fun Equivalents**: See meeting costs in terms of Netflix subscriptions, burritos, etc.
 
+## Releases
+
+Pre-compiled binaries for Linux, macOS, and Windows are available on the [GitHub Releases](https://github.com/josh-spratt/meeting-meter/releases) page.
+
 ## Installation
+
+### For End-Users (Recommended)
+
+1.  Go to the [GitHub Releases](https://github.com/josh-spratt/meeting-meter/releases) page.
+2.  Download the latest binary for your operating system.
+3.  Place it in a directory that is in your system's `PATH`.
+
+### From Source (For Developers)
 
 ```bash
 cargo install --path .
