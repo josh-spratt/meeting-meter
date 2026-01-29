@@ -39,9 +39,7 @@ jobs:
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
-          Rename-Item `
-            target\release\meeting-meter.exe `
-            target\release\meeting-meter-Windows.exe
+          Rename-Item target\release\meeting-meter.exe target\release\meeting-meter-Windows.exe
 
       - name: Upload binaries to GitHub Release
         uses: softprops/action-gh-release@v2
