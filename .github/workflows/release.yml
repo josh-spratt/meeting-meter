@@ -29,21 +29,19 @@ jobs:
       - name: Build
         run: cargo build --release
 
-      # Linux + macOS (same shell semantics)
       - name: Rename binary (Linux/macOS)
         if: runner.os != 'Windows'
         run: |
           mv target/release/meeting-meter \
              target/release/meeting-meter-${{ runner.os }}
 
-      # Windows needs PowerShell + full path
       - name: Rename binary (Windows)
         if: runner.os == 'Windows'
         shell: pwsh
         run: |
           Rename-Item `
             target\release\meeting-meter.exe `
-            meeting-meter-Windows.exe
+            target\release\meeting-meter-Windows.exe
 
       - name: Upload binaries to GitHub Release
         uses: softprops/action-gh-release@v2
@@ -52,3 +50,42 @@ jobs:
             target/release/meeting-meter-Linux
             target/release/meeting-meter-macOS
             target/release/meeting-meter-Windows.exe
+
+  homebrew:
+    name: Update Homebrew formula
+    needs: build
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout tap repo
+        uses: actions/checkout@v4
+        with:
+          repository: josh-spratt/homebrew-meeting-meter
+          token: ${{ secrets.HOMEBREW_TAP_GITHUB_TOKEN }}
+
+      - name: Get version
+        run: echo "VERSION=${GITHUB_REF_NAME#v}" >> $GITHUB_ENV
+
+      - name: Download macOS binary
+        run: |
+          curl -L \
+            -o meeting-meter \
+            https://github.com/josh-spratt/meeting-meter/releases/download/${GITHUB_REF_NAME}/meeting-meter-macOS
+
+      - name: Calculate SHA256
+        run: |
+          echo "SHA=$(shasum -a 256 meeting-meter | awk '{print $1}')" >> $GITHUB_ENV
+
+      - name: Update formula
+        run: |
+          sed -i '' \
+            -e "s|url \".*\"|url \"https://github.com/josh-spratt/meeting-meter/releases/download/${GITHUB_REF_NAME}/meeting-meter-macOS\"|" \
+            -e "s|sha256 \".*\"|sha256 \"${SHA}\"|" \
+            Formula/meeting-meter.rb
+
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git commit -am "meeting-meter ${VERSION}"
+          git push
