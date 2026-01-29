@@ -69,12 +69,12 @@ jobs:
       - name: Download macOS binary
         run: |
           curl -L \
-            -o meeting-meter \
+            -o /tmp/meeting-meter \
             https://github.com/josh-spratt/meeting-meter/releases/download/${GITHUB_REF_NAME}/meeting-meter-macOS
 
       - name: Calculate SHA256
         run: |
-          echo "SHA=$(shasum -a 256 meeting-meter | awk '{print $1}')" >> $GITHUB_ENV
+          echo "SHA=$(shasum -a 256 /tmp/meeting-meter | awk '{print $1}')" >> $GITHUB_ENV
 
       - name: Update formula
         run: |
