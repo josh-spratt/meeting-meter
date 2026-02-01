@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-01-31
+
+### Added
+
+- **Live Meeting Mode (TUI)**: Implemented the `meeting-meter start` command with a real-time interactive terminal user interface (TUI).
+- **Real-time Cost Tracking**: The TUI displays elapsed time, current meeting cost, and cost per minute, updated every second.
+- **Pause/Resume Functionality**: Users can pause and resume the live meeting tracker.
+- **Save/Discard on Exit**: Meetings tracked in live mode can be saved to history or discarded upon exiting the TUI.
+
 ## [0.2.7] - 2026-01-27
 
 ### CI
