@@ -26,21 +26,21 @@ pub enum Role {
 impl Role {
     pub fn default_rate(&self) -> f64 {
         match self {
-            Role::Engineer => 100.0,
-            Role::SeniorEngineer => 130.0,
-            Role::StaffEngineer => 160.0,
-            Role::PrincipalEngineer => 200.0,
-            Role::ProductManager => 120.0,
-            Role::SeniorPm => 150.0,
-            Role::DirectorPm => 200.0,
-            Role::Designer => 110.0,
-            Role::SeniorDesigner => 140.0,
-            Role::Analyst => 90.0,
-            Role::SeniorAnalyst => 115.0,
-            Role::Director => 200.0,
-            Role::Vp => 300.0,
-            Role::Executive => 400.0,
-            Role::Generic => 100.0,
+            Role::Engineer => 43.0,           // $86K/year (was $200K)
+            Role::SeniorEngineer => 66.0,     // $132K/year (was $260K)
+            Role::StaffEngineer => 83.0,      // $167K/year (was $320K)
+            Role::PrincipalEngineer => 103.0, // $207K/year (was $400K)
+            Role::ProductManager => 72.0,     // $150K/year (was $240K)
+            Role::SeniorPm => 88.0,           // $184K/year (was $300K)
+            Role::DirectorPm => 105.0,        // $218K/year (was $400K)
+            Role::Designer => 57.0,           // $113K/year (was $220K)
+            Role::SeniorDesigner => 60.0,     // $121K/year (was $280K)
+            Role::Analyst => 50.0,            // $98K/year (was $180K)
+            Role::SeniorAnalyst => 64.0,      // $127K/year (was $230K)
+            Role::Director => 105.0,          // $218K/year (was $400K)
+            Role::Vp => 106.0,                // $220K/year (was $600K)
+            Role::Executive => 139.0,         // $288K/year (was $800K)
+            Role::Generic => 43.0,            // $86K/year (was $200K)
         }
     }
 

@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2025-02-02
+
+### Changed
+- **BREAKING:** Updated all default hourly rates from SF/NYC levels to Nashville, TN market averages
+- Engineer: $100/hr → $43/hr (57% reduction)
+- Senior Engineer: $130/hr → $66/hr (49% reduction) 
+- Staff Engineer: $160/hr → $83/hr (48% reduction)
+- Principal Engineer: $200/hr → $103/hr (49% reduction)
+- Product Manager: $120/hr → $72/hr (40% reduction)
+- Senior PM: $150/hr → $88/hr (41% reduction)
+- Director PM: $200/hr → $105/hr (48% reduction)
+- Designer: $110/hr → $57/hr (48% reduction)
+- Senior Designer: $140/hr → $60/hr (57% reduction)
+- Analyst: $90/hr → $50/hr (44% reduction)
+- Senior Analyst: $115/hr → $64/hr (44% reduction)
+- Director: $200/hr → $105/hr (48% reduction)
+- VP: $300/hr → $106/hr (65% reduction)
+- Executive: $400/hr → $139/hr (65% reduction)
+- Generic: $100/hr → $43/hr (57% reduction)
+
+### Notes
+- Rates now reflect Nashville, TN tech market with 15% competitive buffer
+- Average reduction: 55% across all roles
+- Meeting costs will be significantly more realistic for Nashville-based teams
+
 ## [0.3.0] - 2026-01-31
 
 ### Added
