@@ -6,7 +6,7 @@ use crate::{
     calculator::Calculator,
     config::ConfigManager,
     helpers::{self, display_attendees, display_cost, display_duration},
-    models::{Config, Meeting, Role},
+    models::{Meeting, Role},
     storage::Storage,
     time_parser,
 };

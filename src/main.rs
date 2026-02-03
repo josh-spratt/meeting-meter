@@ -6,6 +6,7 @@ mod helpers;
 mod models;
 mod storage;
 mod time_parser;
+mod ui;
 
 use anyhow::Result;
 use clap::Parser;
