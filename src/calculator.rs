@@ -66,7 +66,8 @@ impl<'a> Calculator<'a> {
     }
 
     pub fn update_meeting_cost(&self, meeting: &mut Meeting) {
-        meeting.cost = self.calculate_cost(meeting.start_time, meeting.end_time, &meeting.attendees);
+        meeting.cost =
+            self.calculate_cost(meeting.start_time, meeting.end_time, &meeting.attendees);
     }
 }
 
@@ -88,14 +89,14 @@ mod tests {
         let end_time_60 = start_time + Duration::minutes(60);
         let end_time_30 = start_time + Duration::minutes(30);
 
-        // 3 engineers at $100/hr + 1 director at $200/hr = $500/hr
-        // For 60 minutes = $500
+        // 3 engineers at $43/hr + 1 director at $105/hr = $234/hr
+        // For 60 minutes = $234
         let cost = calc.calculate_cost(start_time, end_time_60, &attendees);
-        assert_eq!(cost, 500.0);
+        assert_eq!(cost, 234.0);
 
-        // For 30 minutes = $250
+        // For 30 minutes = $117
         let cost = calc.calculate_cost(start_time, end_time_30, &attendees);
-        assert_eq!(cost, 250.0);
+        assert_eq!(cost, 117.0);
     }
 
     #[test]
@@ -106,8 +107,8 @@ mod tests {
         let mut attendees = HashMap::new();
         attendees.insert(Role::Engineer, 2);
 
-        // 2 engineers at $100/hr = $200/hr = $3.33.../min
+        // 2 engineers at $43/hr = $86/hr = $1.433.../min
         let cost = calc.cost_per_minute(&attendees);
-        assert!((cost - 3.333333).abs() < 0.001);
+        assert!((cost - 1.433333).abs() < 0.001);
     }
 }

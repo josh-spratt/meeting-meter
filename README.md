@@ -81,21 +81,21 @@ meeting-meter report --all
 
 | Role | Rate (USD/hr) |
 |------|---------------|
-| Engineer | $100 |
-| Senior Engineer | $130 |
-| Staff Engineer | $160 |
-| Principal Engineer | $200 |
-| Product Manager | $120 |
-| Senior PM | $150 |
-| Director of PM | $200 |
-| Designer | $110 |
-| Senior Designer | $140 |
-| Analyst | $90 |
-| Senior Analyst | $115 |
-| Director | $200 |
-| VP | $300 |
-| Executive | $400 |
-| Generic | $100 |
+| Engineer | $43 |
+| Senior Engineer | $66 |
+| Staff Engineer | $83 |
+| Principal Engineer | $103 |
+| Product Manager | $72 |
+| Senior PM | $88 |
+| Director of PM | $105 |
+| Designer | $57 |
+| Senior Designer | $60 |
+| Analyst | $50 |
+| Senior Analyst | $64 |
+| Director | $105 |
+| VP | $106 |
+| Executive | $139 |
+| Generic | $43 |
 
 ## Development Roadmap
 
